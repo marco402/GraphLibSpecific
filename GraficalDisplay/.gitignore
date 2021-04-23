@@ -1,0 +1,14 @@
+#projet plugin rtl_433 for SDRSharp C#
+.*
+bin/**
+obj/**
+!/.gitignore
+!/README.md
+
+
+
+
+
+
+
+
