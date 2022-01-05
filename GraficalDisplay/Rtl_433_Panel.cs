@@ -247,12 +247,12 @@ namespace GraficDisplay
             // })
             if ((nbGraph % 2) == 0)
             {
-                int nbPoints = aleatoire.Next(2000, 3000);
+                int nbPoints = 10000;  // aleatoire.Next(2000, 3000);
                 points = aleatoiresBinaire(nbPoints);
             }
             else
             {
-                int nbPoints = aleatoire.Next(2000, 3000);
+                int nbPoints = 10000;   // aleatoire.Next(2000, 3000);
                 points = CalcSinusFunction_1(nbPoints);
             }
             return points;

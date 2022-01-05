@@ -1,5 +1,6 @@
 
 using System;
+using System.Windows.Forms;
 
 namespace GraphLib
 {
@@ -41,6 +42,10 @@ namespace GraphLib
 
                 return sig * n;
             }
+        }
+        static public void  getVersion()
+        {
+            MessageBox.Show("version GraphLib:1.3.0.0", "start plugin rtl433", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

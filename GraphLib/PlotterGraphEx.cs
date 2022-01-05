@@ -43,6 +43,7 @@ namespace GraphLib
         {
             InitializeComponent();
             hScrollBarStartX.Maximum = 0;
+            //Console.WriteLine(Application.ProductVersion);
             // mTimer = new PrecisionTimer.Timer();
             // mTimer.Period = 50;                         // 20 fps
             // mTimer.Tick += new EventHandler(OnTimerTick);

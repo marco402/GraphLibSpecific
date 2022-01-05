@@ -95,6 +95,8 @@ namespace GraphLib
         public void PaintGraphs(Graphics CurGraphics, float CurWidth, float CurHeight, float OFFX, float OFFY)
         {
             endZoom = 0;
+            //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            //stopwatch.Start();
             int CurGraphIdx = 0;
             float curOffY = 0;
             float CurOffX = 0;
@@ -262,6 +264,8 @@ namespace GraphLib
             offsetX = null;
             offsetY.Clear();
             offsetY = null;
+            //stopwatch.Stop();
+            //Console.WriteLine(stopwatch.ElapsedMilliseconds);
         }
         public void PaintControl(Graphics CurGraphics, float CurWidth, float CurHeight, float OffX, float OffY, bool PaintBgnd)
         {
