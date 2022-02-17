@@ -40,8 +40,9 @@ namespace GraphLib
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Desktop;
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
+            this.splitContainer1.Panel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             // 
             // splitContainer1.Panel2
             // 

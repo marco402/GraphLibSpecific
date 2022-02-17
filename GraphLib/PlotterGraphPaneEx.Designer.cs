@@ -1,3 +1,5 @@
+using System;
+
 namespace GraphLib
 {
     partial class PlotterGraphPaneEx
@@ -11,10 +13,12 @@ namespace GraphLib
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(Boolean disposing)
         {
             if (disposing && (components != null))
             {
+                legendFont.Dispose();
+                memGraphics.Dispose();
                 components.Dispose();
             }
             base.Dispose(disposing);

@@ -32,7 +32,7 @@ using System.Drawing.Drawing2D;
 
 namespace GraphLib
 {
-    public partial class PlotterGraphPaneEx : UserControl
+    public partial class PlotterGraphPaneEx : UserControl , IDisposable
     {
 #region MEMBERS PUBLIC
         public enum LayoutMode
@@ -43,22 +43,22 @@ namespace GraphLib
             //TILES_VER,
             //TILES_HOR,
         }
-        public LayoutMode layout = LayoutMode.VERTICAL_ARRANGED;
-        public Color MajorGridColor = Color.DarkGray;
-        public Color MinorGridColor = Color.DarkGray;
-        public Color BgndColorTop = Color.White;
-        public Color BgndColorBot = Color.White;
-        public bool useDoubleBuffer = false;
-        public SmoothingMode smoothing = SmoothingMode.None;
-        public float starting_idx = 0;
-        public float XStartDisplayed = -50;
-        public float XEndDisplayed = 100;
-        public float CurStartDisplayed = 0;
-        public float CurEndDisplayed = 0;
-        public float grid_distance_x = 200;       // grid distance in samples ( draw a vertical line every 200 samples )
-        public float nbMarkerXPixels = 100;
-        public float grid_off_x = 0;
-        public bool EndDrawGraphEvent = true;
+        internal LayoutMode layout = LayoutMode.VERTICAL_ARRANGED;
+        internal Color MajorGridColor = Color.DarkGray;
+        internal Color MinorGridColor = Color.DarkGray;
+        internal Color BgndColorTop = Color.White;
+        internal Color BgndColorBot = Color.White;
+        internal Boolean useDoubleBuffer = false;
+        internal SmoothingMode smoothing = SmoothingMode.None;
+        internal float starting_idx = 0;
+        internal float XStartDisplayed = -50;
+        internal float XEndDisplayed = 100;
+        internal float CurStartDisplayed = 0;
+        internal float CurEndDisplayed = 0;
+        internal float grid_distance_x = 200;       // grid distance in samples ( draw a vertical line every 200 samples )
+        internal float nbMarkerXPixels = 100;
+        internal float grid_off_x = 0;
+        internal Boolean EndDrawGraphEvent = true;
 #endregion
 #region MEMBERS PRIVATE
         private float yLabelAreaWidth = 40;       // y-label area width
@@ -73,13 +73,13 @@ namespace GraphLib
         private float pad_inter = 4;         // padding between graphs
         private float DX = 0;
         private float off_X = 0;
-        private bool hasBoundingBox = true;
+        private Boolean hasBoundingBox = true;
         private Font legendFont = new Font(FontFamily.GenericSansSerif, 8.25f);
         private Color LabelColor = Color.White;
         private Color GraphBoxColor = Color.White;
         private Color GraphColor = Color.DarkGreen;
         private BackBuffer memGraphics;        
-        private int ActiveSources = 0;
+        private Int32 ActiveSources = 0;
         private PointF graphCaptionOffset = new PointF(12, 2);
 #endregion
 #region CONSTRUCTOR
@@ -89,15 +89,15 @@ namespace GraphLib
             InitializeComponent();
             this.Resize += new System.EventHandler(this.OnResizeForm);
         }
-#endregion
-#region PUBLIC METHODS
+        #endregion
+        #region PUBLIC METHODS
         public List<DataSource> Sources { get; } = new List<DataSource>();
-        public void PaintGraphs(Graphics CurGraphics, float CurWidth, float CurHeight, float OFFX, float OFFY)
+        private void PaintGraphs(Graphics CurGraphics, float CurWidth, float CurHeight, float OFFX, float OFFY)
         {
             endZoom = 0;
             //var stopwatch = System.Diagnostics.Stopwatch.StartNew();
             //stopwatch.Start();
-            int CurGraphIdx = 0;
+            Int32 CurGraphIdx = 0;
             float curOffY = 0;
             float CurOffX = 0;
             List<float> offsetX = new List<float>();
@@ -131,12 +131,12 @@ namespace GraphLib
 
                 if (source.Active)
                 {
-                    int DownSample = source.Downsampling;
+                    Int32 DownSample = source.Downsampling;
                     //List <PointF> data = source.Samples;
                     if (source.AutoScaleY == true)
                     {
-                        int idx_start = -1;
-                        int idx_stop = -1;
+                        Int32 idx_start = -1;
+                        Int32 idx_stop = -1;
                         float ymin = 0.0f;
                         float ymax = 0.0f;
                         float ymin_range = 0;
@@ -152,7 +152,7 @@ namespace GraphLib
                             coff_x = off_X ;
                         }
 
-                        for (int i = 0; i < source.Samples.Count - 1; i += DownSample)
+                        for (Int32 i = 0; i < source.Samples.Count - 1; i += DownSample)
                         {
                             float x = source.Samples[i].X * mult_x + coff_x;
 
@@ -229,7 +229,7 @@ namespace GraphLib
 
                     }
                     
-                    List<int> marker_pos = DrawGraphCurve(CurGraphics, source, CurOffX, curOffY + GraphCaptionLineHeight / 2);
+                    List<Int32> marker_pos = DrawGraphCurve(CurGraphics, source, CurOffX, curOffY + GraphCaptionLineHeight / 2);
                     offsetX.Add(CurOffX);
                     offsetY.Add(curOffY);
                     DrawGraphCaption(CurGraphics, source, marker_pos, CurOffX, curOffY);
@@ -241,14 +241,14 @@ namespace GraphLib
                 }
             }
             //calculate _marker_positions for display all marker no synchro to data
-            List<int> marker_positionsForAutoScaleX = new List<int>();
+            List<Int32> marker_positionsForAutoScaleX = new List<Int32>();
             double step = (XEndDisplayed - starting_idx) / ((float)CurWidth / nbMarkerXPixels);
             for (double m = starting_idx; m < (XEndDisplayed - (step/2.0)); m += step)
             {
-                marker_positionsForAutoScaleX.Add((int)m);
+                marker_positionsForAutoScaleX.Add((Int32)m);
             }
-            marker_positionsForAutoScaleX.Add((int)XEndDisplayed);
-            int indice = 0;
+            marker_positionsForAutoScaleX.Add((Int32)XEndDisplayed);
+            Int32 indice = 0;
             foreach (DataSource source in Sources)
             {
                 if (!source.AutoScaleX)
@@ -267,7 +267,7 @@ namespace GraphLib
             //stopwatch.Stop();
             //Console.WriteLine(stopwatch.ElapsedMilliseconds);
         }
-        public void PaintControl(Graphics CurGraphics, float CurWidth, float CurHeight, float OffX, float OffY, bool PaintBgnd)
+        private void PaintControl(Graphics CurGraphics, float CurWidth, float CurHeight, float OffX, float OffY, Boolean PaintBgnd)
         {
             if (PaintBgnd)
             {
@@ -309,12 +309,12 @@ namespace GraphLib
 #region PRIVATE METHODS
         private void DrawBackground(Graphics g,float CurWidth, float CurHeight, float CurOFFX, float CurOFFY)
         {
-            Rectangle rbgn = new Rectangle((int)CurOFFX, (int)CurOFFY, (int)CurWidth, (int)CurHeight);
+            Rectangle rbgn = new Rectangle((Int32)CurOFFX, (Int32)CurOFFY, (Int32)CurWidth, (Int32)CurHeight);
 
             if (BgndColorTop != BgndColorBot)
             {
-                using (LinearGradientBrush lb1 = new LinearGradientBrush(new Point((int)0, (int)0),
-                                                                         new Point((int)0, (int)(CurHeight)),
+                using (LinearGradientBrush lb1 = new LinearGradientBrush(new Point((Int32)0, (Int32)0),
+                                                                         new Point((Int32)0, (Int32)(CurHeight)),
                                                                          BgndColorTop,
                                                                          BgndColorBot))
                 {
@@ -329,16 +329,16 @@ namespace GraphLib
                 }
             }
         }
-        public int endZoom = 0;
-        private List<int> DrawGraphCurve( Graphics g, DataSource source,  float offset_x, float offset_y )
+        public Int32 endZoom = 0;
+        private List<Int32> DrawGraphCurve( Graphics g, DataSource source,  float offset_x, float offset_y )
         {
-            List<int> marker_positions = new List<int>();
+            List<Int32> marker_positions = new List<Int32>();
             if (DX != 0 && source.DY != 0)
             {
                 if (source.Samples != null && source.Samples.Count > 1)
                 {
                     List<Point> ps = new List<Point>();
-                    int DownSample = source.Downsampling;
+                    Int32 DownSample = source.Downsampling;
                     float mult_y = source.CurGraphHeight / source.DY;
                     float mult_x = source.CurGraphWidth / DX;
                     off_X = 0;
@@ -347,20 +347,20 @@ namespace GraphLib
                     {
                         coff_x = off_X;     // avoid dragging in x-autoscale mode
                     }
-                    bool firstPoint = true;
+                    Boolean firstPoint = true;
                     //for gain time
                     float endGraph = source.CurGraphWidth + xLabelAreaheight;
                     float CurGraphWidthCor = source.CurGraphWidth - 1.0f;
                     float offset_xCor = offset_x + 1.0f;
                     float offset_xCorM = offset_x - 1.0f;
                     float offset_yCor = offset_y + 0.0f;
-                    for (int i = 0; i < source.Samples.Count - 1; i += DownSample)
+                    for (Int32 i = 0; i < source.Samples.Count - 1; i += DownSample)
                     {
                         float x = source.Samples[i].X  * mult_x   + coff_x;
                         float y = source.Samples[i].Y  * mult_y + source.off_Y;
                         if (source.AutoScaleX)
                         {
-                            if ((int)(source.Samples[i].X) % grid_distance_x == 0)
+                            if ((Int32)(source.Samples[i].X) % grid_distance_x == 0)
                             {
                                 if (x >= xLabelAreaheight && x < endGraph)
                                 {
@@ -373,17 +373,17 @@ namespace GraphLib
                             if (firstPoint)
                             {
                                 float y1 = source.Samples[i].Y * mult_y + source.off_Y;
-                                ps.Add(new Point((int)offset_xCor, (int)(y1 + offset_yCor))); //
+                                ps.Add(new Point((Int32)offset_xCor, (Int32)(y1 + offset_yCor))); //
                                 firstPoint = false;
                             }
-                            ps.Add(new Point((int)(x + offset_xCor), (int)(y  + offset_yCor))); //                           
+                            ps.Add(new Point((Int32)(x + offset_xCor), (Int32)(y  + offset_yCor))); //                           
                         }
                         else if (x >= CurGraphWidthCor)  //
                         {
                             if(i>0)
                             {
                             y = source.Samples[i-1].Y * mult_y + source.off_Y;
-                            ps.Add(new Point((int)(source.CurGraphWidth + offset_xCorM), (int)(y + offset_yCor))); //  
+                            ps.Add(new Point((Int32)(source.CurGraphWidth + offset_xCorM), (Int32)(y + offset_yCor))); //  
                             }
                             break;
                         }
@@ -396,20 +396,20 @@ namespace GraphLib
                             if (ps.Count < (source.CurGraphWidth / 20))
                             {
                                 endZoom +=1;
-                                int axeY = (int)(offset_y + source.CurGraphHeight / 2);   // (int)(((source.Cur_YD1 - source.Cur_YD0) / 2) + offset_yCor);
+                                Int32 axeY = (Int32)(offset_y + source.CurGraphHeight / 2);   // (Int32)(((source.Cur_YD1 - source.Cur_YD0) / 2) + offset_yCor);
                                 using (Brush brush = new SolidBrush(Color.Cyan))
                                 {
                                     System.Drawing.StringFormat drawFormat = new System.Drawing.StringFormat();
                                     drawFormat.FormatFlags = StringFormatFlags.DirectionVertical;
                                     float memoPsX = (ps[2].X / mult_x + coff_x - offset_x);
-                                    for (int i = 2; i < ps.Count - 2; i++)  //reject first and last no good value
+                                    for (Int32 i = 2; i < ps.Count - 2; i++)  //reject first and last no good value
                                     {
                                         float currentX = (ps[i + 1].X / mult_x + coff_x - offset_x);
-                                        int deltaX = (int)(currentX - memoPsX);
+                                        Int32 deltaX = (Int32)(currentX - memoPsX);
                                         memoPsX = currentX;
                                         if (deltaX > 0)
                                         {
-                                            string value = "";
+                                            String value = "";
                                             if (source.OnRenderXAxisLabel != null)
                                                 value = source.OnRenderXAxisLabel(deltaX);
                                             g.DrawString(value, legendFont, brush, new PointF(ps[i].X + 1, axeY), drawFormat);
@@ -430,7 +430,7 @@ namespace GraphLib
             
             return marker_positions;  //if AutoScaleX:marker_positions else marker_positionsForAutoScaleX
         }
-        private void DrawGraphCaption(Graphics g, DataSource source, List<int> marker_pos, float offset_x, float offset_y)
+        private void DrawGraphCaption(Graphics g, DataSource source, List<Int32> marker_pos, float offset_x, float offset_y)
         {
             using (Brush brush = new SolidBrush(source.GraphColor))
             {
@@ -443,7 +443,7 @@ namespace GraphLib
                 }
             }
         }
-        private void DrawXLabelsForAutoScaleX(Graphics g, DataSource source, List<int> marker_data, float offset_x, float offset_y)
+        private void DrawXLabelsForAutoScaleX(Graphics g, DataSource source, List<Int32> marker_data, float offset_x, float offset_y)
         {
             Color XLabColor = source.GraphColor;
             using (Brush brush = new SolidBrush(Color.Cyan))
@@ -468,10 +468,10 @@ namespace GraphLib
                             float offset_xCor = -3.0f + offset_x + 4;
                             float unknownOffset = -12;// -14;
                             float offset_yCor = GraphCaptionLineHeight + offset_y + source.CurGraphHeight + unknownOffset;
-                            foreach (int XData in marker_data)
+                            foreach (Int32 XData in marker_data)
                             {
                                 float x = XData * mult_x + coff_x;
-                                string value = "" +XData;
+                                String value = "" +XData;
 
                                 if (source.OnRenderXAxisLabel != null)
                                 {
@@ -482,7 +482,7 @@ namespace GraphLib
                                 
                                     SizeF dim = g.MeasureString(value, legendFont);
                                     g.DrawString(value, legendFont, brush,
-                                         new PointF((int)( x + offset_xCor - dim.Width / 2),offset_yCor));
+                                         new PointF((Int32)( x + offset_xCor - dim.Width / 2),offset_yCor));
                             }
                         }
                     }
@@ -509,7 +509,7 @@ namespace GraphLib
                             value = source.OnRenderYAxisLabel(source, Idx);
                         }
                         SizeF dim = g.MeasureString(value, legendFont);
-                        g.DrawString(value, legendFont, b, new PointF((int)offset_x - dim.Width, (int)(offset_y + y0 + 0.5f + dim.Height / 2)));
+                        g.DrawString(value, legendFont, b, new PointF((Int32)offset_x - dim.Width, (Int32)(offset_y + y0 + 0.5f + dim.Height / 2)));
                         float GridDistY = source.grid_distance_y;
                         if (source.AutoScaleY)
                         {
@@ -522,7 +522,7 @@ namespace GraphLib
 
                             }
                         }
-                        int cpt = 0;
+                        Int32 cpt = 0;
                         for (Idx = (source.grid_off_y); Idx >= (source.Cur_YD0); Idx -= GridDistY)
                         {
                             if (Idx != 0)
@@ -538,7 +538,7 @@ namespace GraphLib
 
                                 dim = g.MeasureString(value, legendFont);
                                 cpt++;
-                                g.DrawString(value, legendFont, b, new PointF((int)offset_x - dim.Width, (int)(offset_y + y1 + 0.5f + dim.Height / 2)));
+                                g.DrawString(value, legendFont, b, new PointF((Int32)offset_x - dim.Width, (Int32)(offset_y + y1 + 0.5f + dim.Height / 2)));
                             }
                         }
                         for (Idx = (source.grid_off_y); Idx <= (source.Cur_YD1); Idx += GridDistY)
@@ -555,7 +555,7 @@ namespace GraphLib
                                 }
                                 dim = g.MeasureString(value, legendFont);
                                 cpt++;
-                                g.DrawString(value, legendFont, b, new PointF((int)offset_x - dim.Width, (int)(offset_y + y2 + 0.5f + dim.Height / 2)));
+                                g.DrawString(value, legendFont, b, new PointF((Int32)offset_x - dim.Width, (Int32)(offset_y + y2 + 0.5f + dim.Height / 2)));
                             }
                         }
                     }
@@ -625,6 +625,39 @@ namespace GraphLib
 
             base.OnPaint(e);
         }
+        //private Boolean disposed = false;
+        //protected override void Dispose(Boolean disposing)
+        //{
+        //    if (!disposed)
+        //    {
+        //        // Dispose of resources held by this instance.
+
+        //        // Violates rule: DisposableFieldsShouldBeDisposed.
+        //        // Should call aFieldOfADisposableType.Dispose();
+
+        //        disposed = true;
+        //        // Suppress finalization of this disposed instance.
+        //        if (disposing)
+        //        {
+        //            GC.SuppressFinalize(this);
+        //        }
+        //    }
+        //}
+
+        //public new void Dispose()
+        //{
+        //    if (!disposed)
+        //    {
+        //        // Dispose of resources held by this instance.
+        //        Dispose(true);
+        //    }
+        //}
+
+        // Disposable types implement a finalizer.
+        //~TypeB()
+        //{
+        //    Dispose(false);
+        //}
         #endregion
     }
 }

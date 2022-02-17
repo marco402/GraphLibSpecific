@@ -37,8 +37,8 @@ namespace GraphLib
     {
 #region MEMBERS
         delegate void InvokeVoidFuncDelegate();
-#endregion
-#region CONSTRUCTOR
+        #endregion
+        #region CONSTRUCTOR
         public PlotterDisplayEx()
         {
             InitializeComponent();
@@ -51,7 +51,7 @@ namespace GraphLib
             //// mTimer.Start();
             // isRunning = false;
         }
-        void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             String text = e.ClickedItem.Text;
             foreach (DataSource s in gPane.Sources)
@@ -122,13 +122,13 @@ namespace GraphLib
             get { return gPane.MajorGridColor; }
             set { gPane.MajorGridColor = value; }
         }
-        public bool DoubleBuffering
+        public Boolean DoubleBuffering
         {
             get { return gPane.useDoubleBuffer; }
             set { gPane.useDoubleBuffer = value; }
         }
-#endregion
-#region PUBLIC METHODS
+        #endregion
+        #region PUBLIC METHODS
         public void SetDisplayRangeX(float x_startDisplayed, float x_endDisplayed)
         {
             gPane.XStartDisplayed = x_startDisplayed;
@@ -143,7 +143,7 @@ namespace GraphLib
             gPane.grid_distance_x = grid_dist_x_samples;
         }
         private float MaxXAllData = 0;
-        public void SetMaxXAllData(float MaxXAllData,bool refresh)
+        public void SetMaxXAllData(float MaxXAllData,Boolean refresh)
         {
             if (base.InvokeRequired)
             {
@@ -168,7 +168,7 @@ namespace GraphLib
                      hScrollBar1_ValueChanged();
             }
         }
-        public void SetMarkerXPixels(int nbMarkerXPixels)
+        public void SetMarkerXPixels(Int32 nbMarkerXPixels)
         {
             gPane.nbMarkerXPixels = nbMarkerXPixels;
         }
@@ -190,7 +190,7 @@ namespace GraphLib
                 Refresh();
             }
         }
-        public bool getEndDrawGraphEvent()
+        public Boolean getEndDrawGraphEvent()
         {
             return gPane.EndDrawGraphEvent;
         }
@@ -200,7 +200,7 @@ namespace GraphLib
         {
             try
             {
-                bool AllAutoscaled = true;
+                Boolean AllAutoscaled = true;
 
                 foreach (DataSource s in gPane.Sources)
                 {
@@ -221,12 +221,6 @@ namespace GraphLib
             if (gPane.Sources.Count > 0)
             {
                 float XEndDisplayed = memoXEndDisplayed - memoScrollValue + hScrollBarStartX.Value;
-                int test = 0;
-
-                if (XEndDisplayed < 0)
-                    test = 0;
-                if (test == 0)
-                    test = 2;
                 UpdateRowSource(XEndDisplayed);
                 memoScrollValue = hScrollBarStartX.Value;
             }
@@ -272,7 +266,7 @@ namespace GraphLib
                 SetGridDistanceX((XEndDisplayed - XStartDisplayed) / 5.0f);
             SetDisplayRangeX(XStartDisplayed, XEndDisplayed);
             // +9.0f stop before max?? with largeChange=10:992 for 1001 ,ok with largeChange=1
-            hScrollBarStartX.Maximum = (int)Math.Ceiling(MaxXAllData - (XEndDisplayed - XStartDisplayed));
+            hScrollBarStartX.Maximum = (Int32)Math.Ceiling(MaxXAllData - (XEndDisplayed - XStartDisplayed));
             gPane.Refresh(); 
         }
 #endregion

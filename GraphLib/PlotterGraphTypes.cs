@@ -33,27 +33,27 @@ namespace GraphLib
 {
     public class DataSource
     {
-        public delegate String OnDrawXAxisLabelEvent(int idx);
+        public delegate String OnDrawXAxisLabelEvent(Int32 idx);
         public delegate String OnDrawYAxisLabelEvent(DataSource src, float value);
         public OnDrawXAxisLabelEvent OnRenderXAxisLabel = null;
         public OnDrawYAxisLabelEvent OnRenderYAxisLabel = null;
-        private int length = 0;
-        public float VisibleDataRange_X = 0;
-        public float DY = 0;
-        public float YD0 = -200;
-        public float YD1 = 200;
-        public float Cur_YD0 = -200;
-        public float Cur_YD1 = 200;
-        public float grid_distance_y = 200;
-        public float off_Y = 0;
-        public float grid_off_y = 0;
-        public bool yFlip = true;
-        public bool Active = true;
-        public float XAutoScaleOffset = 100;
-        public float CurGraphHeight = 1.0f;
-        public float CurGraphWidth = 1.0f;
-        public bool AutoScaleY { get; set; } = false;
-        public bool AutoScaleX { get; set; } = false;
+        private Int32 length = 0;
+        internal float VisibleDataRange_X = 0;
+        internal float DY = 0;
+        internal float YD0 = -200;
+        internal float YD1 = 200;
+        internal float Cur_YD0 = -200;
+        internal float Cur_YD1 = 200;
+        internal float grid_distance_y = 200;
+        internal float off_Y = 0;
+        internal float grid_off_y = 0;
+        internal Boolean yFlip = true;
+        internal Boolean Active = true;
+        internal float XAutoScaleOffset = 100;
+        internal float CurGraphHeight = 1.0f;
+        internal float CurGraphWidth = 1.0f;
+        public Boolean AutoScaleY { get; set; } = false;
+        public Boolean AutoScaleX { get; set; } = false;
         private List<PointF> samples = null;
         public List<PointF> Samples
         {
@@ -141,7 +141,7 @@ namespace GraphLib
             grid_off_y = off_y;
         }
         [Category("Properties")] // Take this out, and you will soon have problems with serialization;
-        [DefaultValue(typeof(string), "")]
+        [DefaultValue(typeof(String), "")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public String Name { get; set; } = String.Empty;
         [Category("Properties")] // Take this out, and you will soon have problems with serialization;
@@ -149,9 +149,9 @@ namespace GraphLib
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color GraphColor { get; set; } = Color.Black;
         [Category("Properties")] // Take this out, and you will soon have problems with serialization;
-        [DefaultValue(typeof(int), "0")]
+        [DefaultValue(typeof(Int32), "0")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public int Length
+        public Int32 Length
         {
             get { return length; }
             set
@@ -173,8 +173,8 @@ namespace GraphLib
             }
         }
         [Category("Properties")] // Take this out, and you will soon have problems with serialization;
-        [DefaultValue(typeof(int), "1")]
+        [DefaultValue(typeof(Int32), "1")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public int Downsampling { get; set; } = 1;
+        public Int32 Downsampling { get; set; } = 1;
     }
 }

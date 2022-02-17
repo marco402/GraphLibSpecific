@@ -17,7 +17,7 @@ namespace GraphLib
         /// </summary>
         /// <param name="Value"></param>
         /// <returns></returns>
-        static public float MostSignificantDigit(float Value)
+        static internal float MostSignificantDigit(float Value)
         {
             float n = 1;
 
@@ -31,7 +31,7 @@ namespace GraphLib
                     n *= 10.0f;
                 }
 
-                return (float)((int)(sig * n / 10));
+                return (float)((Int32)(sig * n / 10));
             }
             else // n <= 1
             {
@@ -45,7 +45,7 @@ namespace GraphLib
         }
         static public void  getVersion()
         {
-            MessageBox.Show("version GraphLib:1.3.0.0", "start plugin rtl433", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("version GraphLib:1.5.0.0", "start plugin rtl433", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

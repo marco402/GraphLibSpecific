@@ -26,21 +26,21 @@ using System.Drawing;
 
  
 namespace GraphLib
-{    
-    public class BackBuffer
+{
+    internal class BackBuffer : IDisposable
     {
         private Graphics graphics;
         private Bitmap memoryBitmap;
-        private int width;
-        private int height;
-        
-        public BackBuffer()
+        private Int32 width;
+        private Int32 height;
+
+        internal BackBuffer()
         {
             width = 0;
             height = 0;
         }
-       
-        public bool Init(Graphics g, int width, int height)
+
+        internal Boolean Init(Graphics g, Int32 width, Int32 height)
         {
             if (memoryBitmap != null)
             {
@@ -70,8 +70,8 @@ namespace GraphLib
 
             return true;
         }
-        
-        public void Render(Graphics g)
+
+        internal void Render(Graphics g)
         {
             if (memoryBitmap != null)
             {
@@ -81,18 +81,34 @@ namespace GraphLib
                             GraphicsUnit.Pixel);
             }
         }
-       
-        public bool CanDoubleBuffer()
+
+        internal Boolean CanDoubleBuffer()
         {
             return graphics != null;
         }
-        
-        public Graphics g
+
+        internal Graphics g
         {
             get
             {
                 return graphics;
             }
+        }
+        protected virtual void Dispose(Boolean disposing)
+        {
+            if (disposing)
+            {
+                // dispose managed resources
+                memoryBitmap.Dispose();
+
+            }
+            // free native resources
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
