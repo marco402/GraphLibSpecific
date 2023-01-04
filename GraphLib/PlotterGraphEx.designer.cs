@@ -92,7 +92,7 @@ namespace GraphLib
             this.labelUseMouseWheel.Name = "labelUseMouseWheel";
             this.labelUseMouseWheel.Size = new System.Drawing.Size(130, 13);
             this.labelUseMouseWheel.TabIndex = 2;
-            this.labelUseMouseWheel.Text = "Use mouse whell for zoom";
+            this.labelUseMouseWheel.Text = "Use mouse wheel for zoom";
             // 
             // hScrollBarStartX
             // 
