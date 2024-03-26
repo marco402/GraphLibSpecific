@@ -40,9 +40,9 @@ namespace GraphLib
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Desktop;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
-            this.splitContainer1.Panel1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.splitContainer1.Panel1.ForeColor = System.Drawing.SystemColors.ControlText;
             // 
             // splitContainer1.Panel2
             // 
@@ -67,7 +67,6 @@ namespace GraphLib
             // labelTmax
             // 
             this.labelTmax.AutoSize = true;
-            this.labelTmax.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelTmax.Location = new System.Drawing.Point(240, 8);
             this.labelTmax.Name = "labelTmax";
             this.labelTmax.Size = new System.Drawing.Size(33, 13);
@@ -77,7 +76,6 @@ namespace GraphLib
             // labelT0
             // 
             this.labelT0.AutoSize = true;
-            this.labelT0.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelT0.Location = new System.Drawing.Point(10, 8);
             this.labelT0.Name = "labelT0";
             this.labelT0.Size = new System.Drawing.Size(20, 13);
@@ -87,10 +85,9 @@ namespace GraphLib
             // labelUseMouseWheel
             // 
             this.labelUseMouseWheel.AutoSize = true;
-            this.labelUseMouseWheel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.labelUseMouseWheel.Location = new System.Drawing.Point(279, 8);
             this.labelUseMouseWheel.Name = "labelUseMouseWheel";
-            this.labelUseMouseWheel.Size = new System.Drawing.Size(130, 13);
+            this.labelUseMouseWheel.Size = new System.Drawing.Size(134, 13);
             this.labelUseMouseWheel.TabIndex = 2;
             this.labelUseMouseWheel.Text = "Use mouse wheel for zoom";
             // 

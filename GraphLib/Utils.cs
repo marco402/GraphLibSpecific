@@ -1,5 +1,7 @@
 
 using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace GraphLib
@@ -45,7 +47,7 @@ namespace GraphLib
         }
         static public void  getVersion()
         {
-            MessageBox.Show("version GraphLib:1.5.0.0", "start plugin rtl433", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("version GraphLib: " + FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion, "start plugin rtl433", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

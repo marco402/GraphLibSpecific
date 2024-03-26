@@ -194,6 +194,30 @@ namespace GraphLib
         {
             return gPane.EndDrawGraphEvent;
         }
+        public void setAmbiantProperty(Color theBackColor,Color theForeColor,Font theFont)
+        {
+            this.BackColor = theBackColor;
+            this.ForeColor = theForeColor;
+            this.Font = theFont;
+            labelT0.BackColor = theBackColor;
+            labelTmax.BackColor = theBackColor;
+            labelUseMouseWheel.BackColor = theBackColor;
+            labelT0.ForeColor = theForeColor;
+            labelTmax.ForeColor = theForeColor;
+            labelUseMouseWheel.ForeColor = theForeColor;
+            labelT0.Font = theFont;
+            labelTmax.Font = theFont;
+            labelUseMouseWheel.Font = theFont;
+            splitContainer1.Panel1.BackColor = theBackColor;
+            splitContainer1.Panel1.ForeColor = theForeColor;
+            splitContainer1.Panel1.Font = theFont;
+            splitContainer1.BackColor = theBackColor;
+            splitContainer1.ForeColor = theForeColor;
+            splitContainer1.Font = theFont;
+            panel1.BackColor = theBackColor;
+            panel1.ForeColor = theForeColor;
+            panel1.Font = theFont;
+        }
 #endregion
 #region PRIVATE METHODS
         private void UpdateControl()
