@@ -48,7 +48,7 @@ namespace GraphLib
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.Panel2.Controls.Add(this.gPane);
-            this.splitContainer1.Size = new System.Drawing.Size(598, 339);
+            this.splitContainer1.Size = new System.Drawing.Size(417, 150);
             this.splitContainer1.SplitterDistance = 34;
             this.splitContainer1.TabIndex = 2;
             this.splitContainer1.TabStop = false;
@@ -61,7 +61,7 @@ namespace GraphLib
             this.panel1.Controls.Add(this.hScrollBarStartX);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(417, 28);
+            this.panel1.Size = new System.Drawing.Size(470, 100);
             this.panel1.TabIndex = 7;
             // 
             // labelTmax
@@ -76,7 +76,7 @@ namespace GraphLib
             // labelT0
             // 
             this.labelT0.AutoSize = true;
-            this.labelT0.Location = new System.Drawing.Point(10, 8);
+            this.labelT0.Location = new System.Drawing.Point(3, 8);
             this.labelT0.Name = "labelT0";
             this.labelT0.Size = new System.Drawing.Size(20, 13);
             this.labelT0.TabIndex = 3;
@@ -94,19 +94,19 @@ namespace GraphLib
             // hScrollBarStartX
             // 
             this.hScrollBarStartX.LargeChange = 1;
-            this.hScrollBarStartX.Location = new System.Drawing.Point(33, 11);
+            this.hScrollBarStartX.Location = new System.Drawing.Point(27, 11);
             this.hScrollBarStartX.Maximum = 10000;
             this.hScrollBarStartX.Name = "hScrollBarStartX";
-            this.hScrollBarStartX.Size = new System.Drawing.Size(204, 10);
+            this.hScrollBarStartX.Size = new System.Drawing.Size(210, 10);
             this.hScrollBarStartX.TabIndex = 4;
-            this.hScrollBarStartX.ValueChanged += new System.EventHandler(this.hScrollBar1_ValueChanged);
+            this.hScrollBarStartX.ValueChanged += new System.EventHandler(this.HScrollBar1_ValueChanged);
             // 
             // gPane
             // 
             this.gPane.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gPane.Location = new System.Drawing.Point(0, 0);
             this.gPane.Name = "gPane";
-            this.gPane.Size = new System.Drawing.Size(598, 301);
+            this.gPane.Size = new System.Drawing.Size(417, 112);
             this.gPane.TabIndex = 1;
             // 
             // PlotterDisplayEx
@@ -116,7 +116,7 @@ namespace GraphLib
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.splitContainer1);
             this.Name = "PlotterDisplayEx";
-            this.Size = new System.Drawing.Size(598, 339);
+            this.Size = new System.Drawing.Size(417, 150);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

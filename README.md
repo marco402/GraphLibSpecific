@@ -7,7 +7,7 @@ The original version can be found at:
 
 https://www.codeproject.com/Articles/32836/A-simple-C-library-for-graph-plotting
 
-​
+Zoom fix Version("1.5.8.0")
 
 -Processing a single LayoutMode case: VERTICAL_ARRANGED
 
@@ -33,6 +33,8 @@ Version spécifique de graphlib développée pour l'application plugin SdrSharp 
 La version d'origine se trouve à cette adresse:
 
 https://www.codeproject.com/Articles/32836/A-simple-C-library-for-graph-plotting
+
+Correctif zoom Version("1.5.8.0")
 
 -Traitement d'un seul cas de LayoutMode: VERTICAL_ARRANGED
 

@@ -1,22 +1,3 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_light_1811_5.0|AnyCPU'">
-    <StartAction>Project</StartAction>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>C:\marc\tnt\sources\SDRSharp_1811\bin\SDRSharp.exe</StartProgram>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_light_1811|AnyCPU'">
-    <StartProgram>C:\marc\tnt\sources\SDRSharp_1811\bin\SDRSharp.exe</StartProgram>
-    <StartAction>Program</StartAction>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <StartProgram>C:\marc\tnt\sources\SDRSharp_1811\bin\SDRSharp.exe</StartProgram>
-    <StartAction>Program</StartAction>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_light_1811|x64'">
-    <StartProgram>C:\marc\tnt\sources\SDRSharp_1811\bin\SDRSharp.exe</StartProgram>
-    <StartAction>Program</StartAction>
-  </PropertyGroup>
 </Project>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 
 /* Copyright (c) 2008-2014 DI Zimmermann Stephan (stefan.zimmermann@tele2.at)
  *   
@@ -33,8 +34,8 @@ namespace GraphLib
 {
     public class DataSource
     {
-        public delegate String OnDrawXAxisLabelEvent(Int32 idx);
-        public delegate String OnDrawYAxisLabelEvent(DataSource src, float value);
+        public delegate string OnDrawXAxisLabelEvent(Int32 idx);
+        public delegate string OnDrawYAxisLabelEvent(DataSource src, float value);
         public OnDrawXAxisLabelEvent OnRenderXAxisLabel = null;
         public OnDrawYAxisLabelEvent OnRenderYAxisLabel = null;
         private Int32 length = 0;
@@ -47,86 +48,27 @@ namespace GraphLib
         internal float grid_distance_y = 200;
         internal float off_Y = 0;
         internal float grid_off_y = 0;
-        internal Boolean yFlip = true;
-        internal Boolean Active = true;
+        internal bool yFlip = true;
+        internal bool Active = true;
         internal float XAutoScaleOffset = 100;
         internal float CurGraphHeight = 1.0f;
         internal float CurGraphWidth = 1.0f;
-        public Boolean AutoScaleY { get; set; } = false;
-        public Boolean AutoScaleX { get; set; } = false;
+        public bool AutoScaleY { get; set; } = false;
+        public bool AutoScaleX { get; set; } = false;
         private List<PointF> samples = null;
         public List<PointF> Samples
         {
-            get
-            {
-                return samples;
-            }
+            get => samples;
             set
             {
                 samples = value;
                 length = samples.Count;
-             }
-        }
-        public float XMin
-        {
-            get
-            {
-                float x_min = float.MaxValue;
-                if (samples.Count > 0)
-                {
-                    foreach (PointF p in samples)
-                    {
-                        if (p.X < x_min) x_min = p.X;
-                    }
-                }
-                return x_min;
             }
         }
-        public float XMax
-        {
-            get
-            {
-                float x_max = float.MinValue;
-                if (samples.Count > 0)
-                {
-                    foreach (PointF p in samples)
-                    {
-                        if (p.X > x_max) x_max = p.X;
-                    }
-                }
-                return x_max;
-            }
-        }
-        public float YMin
-        {
-            get
-            {
-                float y_min = float.MaxValue;
-                if (samples.Count > 0)
-                {
-                    foreach (PointF p in samples)
-                    {
-                        if (p.Y < y_min) y_min = p.Y;
-                    }
-                }
-                return y_min;
-            }
-        }
-        public float YMax
-        {
-            get
-            {
-                float y_max = float.MinValue;
-                if (samples.Count > 0)
-                {
-                    foreach (PointF p in samples)
-                    {
-                        if (p.Y > y_max) y_max = p.Y;
-                    }
-                }
-                return y_max;
-            }
-        }
+        public float XMin => samples.Min(point => point.X);
+        public float XMax => samples.Max(point => point.X);
+        public float YMin => samples.Min(point => point.Y);
+        public float YMax => samples.Max(point => point.Y);
         public void SetDisplayRangeY(float y_start, float y_end)
         {
             YD0 = y_start;
@@ -141,9 +83,9 @@ namespace GraphLib
             grid_off_y = off_y;
         }
         [Category("Properties")] // Take this out, and you will soon have problems with serialization;
-        [DefaultValue(typeof(String), "")]
+        [DefaultValue(typeof(string), "")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public String Name { get; set; } = String.Empty;
+        public string Name { get; set; } = string.Empty;
         [Category("Properties")] // Take this out, and you will soon have problems with serialization;
         [DefaultValue(typeof(Color), "")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -153,7 +95,7 @@ namespace GraphLib
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Int32 Length
         {
-            get { return length; }
+            get => length;
             set
             {
                 length = value;

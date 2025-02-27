@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 /* Copyright (c) 2008-2014 DI Zimmermann Stephan (stefan.zimmermann@tele2.at)
  * 
@@ -35,8 +35,8 @@ namespace GraphLib
 {
     public partial class PlotterDisplayEx : UserControl
     {
-#region MEMBERS
-        delegate void InvokeVoidFuncDelegate();
+        #region MEMBERS
+        private delegate void InvokeVoidFuncDelegate();
         #endregion
         #region CONSTRUCTOR
         public PlotterDisplayEx()
@@ -51,9 +51,9 @@ namespace GraphLib
             //// mTimer.Start();
             // isRunning = false;
         }
-        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void ContextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            String text = e.ClickedItem.Text;
+            string text = e.ClickedItem.Text;
             foreach (DataSource s in gPane.Sources)
             {
                 if (s.Name == text)
@@ -64,38 +64,35 @@ namespace GraphLib
                 }
             }
         }
-#endregion
-#region PROPERTIES
+        #endregion
+        #region PROPERTIES
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor(typeof(System.ComponentModel.Design.CollectionEditor),
                typeof(System.Drawing.Design.UITypeEditor))]
-        public List<DataSource> DataSources
-        {
-            get { return gPane.Sources; }
-        }
+        public List<DataSource> DataSources => gPane.Sources;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor(typeof(System.ComponentModel.Design.CollectionEditor),
                typeof(System.Drawing.Design.UITypeEditor))]
         public PlotterGraphPaneEx.LayoutMode PanelLayout
         {
-            get { return gPane.layout; }
-            set { gPane.layout = value; }
+            get => gPane.layout;
+            set => gPane.layout = value;
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Editor(typeof(System.ComponentModel.Design.CollectionEditor),
                typeof(System.Drawing.Design.UITypeEditor))]
         public SmoothingMode Smoothing
         {
-            get { return gPane.smoothing; }
-            set { gPane.smoothing = value; }
+            get => gPane.smoothing;
+            set => gPane.smoothing = value;
         }
         [Category("Properties")]
         [DefaultValue(typeof(Color), "")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color BackgroundColorTop
         {
-            get { return gPane.BgndColorTop; }
-            set { gPane.BgndColorTop = value; }
+            get => gPane.BgndColorTop;
+            set => gPane.BgndColorTop = value;
         }
 
         [Category("Properties")]
@@ -103,86 +100,91 @@ namespace GraphLib
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color BackgroundColorBot
         {
-            get { return gPane.BgndColorBot; }
-            set { gPane.BgndColorBot = value; }
+            get => gPane.BgndColorBot;
+            set => gPane.BgndColorBot = value;
         }
         [Category("Properties")]
         [DefaultValue(typeof(Color), "")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color DashedGridColor
         {
-            get { return gPane.MinorGridColor; }
-            set { gPane.MinorGridColor = value; }
+            get => gPane.MinorGridColor;
+            set => gPane.MinorGridColor = value;
         }
         [Category("Properties")]
         [DefaultValue(typeof(Color), "")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public Color SolidGridColor
         {
-            get { return gPane.MajorGridColor; }
-            set { gPane.MajorGridColor = value; }
+            get => gPane.MajorGridColor;
+            set => gPane.MajorGridColor = value;
         }
-        public Boolean DoubleBuffering
+        public bool DoubleBuffering
         {
-            get { return gPane.useDoubleBuffer; }
-            set { gPane.useDoubleBuffer = value; }
+            get => gPane.useDoubleBuffer;
+            set => gPane.useDoubleBuffer = value;
         }
         #endregion
         #region PUBLIC METHODS
-        public void SetDisplayRangeX(float x_startDisplayed, float x_endDisplayed)
+        public void SetDisplayRangeX(float XStartDisplayed, float XEndDisplayed)
         {
-            gPane.XStartDisplayed = x_startDisplayed;
-            gPane.XEndDisplayed = x_endDisplayed;
+            gPane.XStartDisplayed = XStartDisplayed;
+            gPane.XEndDisplayed = XEndDisplayed;
             gPane.CurStartDisplayed = gPane.XStartDisplayed;
             gPane.CurEndDisplayed = gPane.XEndDisplayed;
-            gPane.starting_idx = x_startDisplayed;
-            memoXEndDisplayed = x_endDisplayed;
+            gPane.starting_idx = XStartDisplayed;
+            memoXEndDisplayed = XEndDisplayed;
         }
-        public void SetGridDistanceX(float grid_dist_x_samples)
+        public void SetGridDistanceX(float GridDistXSamples)
         {
-            gPane.grid_distance_x = grid_dist_x_samples;
+            gPane.grid_distance_x = GridDistXSamples;
         }
         private float MaxXAllData = 0;
-        public void SetMaxXAllData(float MaxXAllData,Boolean refresh)
+        public void SetMaxXAllData(float maxXAllData, bool refresh)
         {
             if (base.InvokeRequired)
             {
                 base.BeginInvoke((Action)delegate
                 {
-                    SetMaxXAllData(MaxXAllData, refresh);
+                    SetMaxXAllData(maxXAllData, refresh);
                 });
             }
             else
             {
-                if(this.MaxXAllData==0)
-                    memoXEndDisplayed = MaxXAllData;
-                this.MaxXAllData = MaxXAllData;
-                if (memoXEndDisplayed > MaxXAllData)   
+                if (MaxXAllData == 0) //commente
                 {
-                   memoZoom=1;
-                   hScrollBarStartX.Value = 0;
-                   hScrollBarStartX.Maximum = 0;
-                   memoXEndDisplayed = MaxXAllData;
+                    memoXEndDisplayed = maxXAllData;
                 }
+
+                MaxXAllData = maxXAllData;
+                ////if (memoXEndDisplayed > MaxXAllData)  // no add points only sub
+                ////{
+                //memoZoom = 1;
+                hScrollBarStartX.Value = 0;
+                hScrollBarStartX.Maximum = 0;
+                memoXEndDisplayed = maxXAllData;
+                ////}
                 if (refresh)
-                     hScrollBar1_ValueChanged();
+                {
+                    HScrollBar1_ValueChanged();
+                }
             }
         }
         public void SetMarkerXPixels(Int32 nbMarkerXPixels)
         {
             gPane.nbMarkerXPixels = nbMarkerXPixels;
         }
-        public void SetGridOriginX(float off_x)
+        public void SetGridOriginX(float off_X)
         {
-            gPane.grid_off_x = off_x;
+            gPane.grid_off_x = off_X;
         }
-        public void refreshPoints()
+        public void RefreshPoints()
         {
             if (base.InvokeRequired)
             {
                 base.BeginInvoke((Action)delegate
                 {
-                    refreshPoints();
+                    RefreshPoints();
                 });
             }
             else
@@ -190,15 +192,15 @@ namespace GraphLib
                 Refresh();
             }
         }
-        public Boolean getEndDrawGraphEvent()
+        public bool GetEndDrawGraphEvent()
         {
             return gPane.EndDrawGraphEvent;
         }
-        public void setAmbiantProperty(Color theBackColor,Color theForeColor,Font theFont)
+        public void SetAmbiantProperty(Color theBackColor, Color theForeColor, Font theFont)
         {
-            this.BackColor = theBackColor;
-            this.ForeColor = theForeColor;
-            this.Font = theFont;
+            BackColor = theBackColor;
+            ForeColor = theForeColor;
+            Font = theFont;
             labelT0.BackColor = theBackColor;
             labelTmax.BackColor = theBackColor;
             labelUseMouseWheel.BackColor = theBackColor;
@@ -218,29 +220,29 @@ namespace GraphLib
             panel1.ForeColor = theForeColor;
             panel1.Font = theFont;
         }
-#endregion
-#region PRIVATE METHODS
-        private void UpdateControl()
-        {
-            try
-            {
-                Boolean AllAutoscaled = true;
+        #endregion
+        #region PRIVATE METHODS
+        //private void UpdateControl()
+        //{
+        //    try
+        //    {
+        //        bool AllAutoscaled = true;
 
-                foreach (DataSource s in gPane.Sources)
-                {
-                    AllAutoscaled &= s.AutoScaleX;
-                }
-            }
-            catch
-            {
-            }
-        }
+        //        foreach (DataSource s in gPane.Sources)
+        //        {
+        //            AllAutoscaled &= s.AutoScaleX;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //    }
+        //}
         private float memoScrollValue = 0;
-        private void hScrollBar1_ValueChanged(object sender, EventArgs e)
+        private void HScrollBar1_ValueChanged(object sender, EventArgs e)
         {
-            hScrollBar1_ValueChanged();
+            HScrollBar1_ValueChanged();
         }
-        private void hScrollBar1_ValueChanged()
+        private void HScrollBar1_ValueChanged()
         {
             if (gPane.Sources.Count > 0)
             {
@@ -249,50 +251,65 @@ namespace GraphLib
                 memoScrollValue = hScrollBarStartX.Value;
             }
         }
-        private float memoZoom = 1;
+        //private float memoZoom = 1;
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             HandledMouseEventArgs h = (HandledMouseEventArgs)e;
             h.Handled = true; // pour empêcher le traitement par défaut
-            float zoom = 0;
+            float zoom;
             if (e.Delta < 0)
             {
-               if((memoXEndDisplayed - hScrollBarStartX.Value) <MaxXAllData)
+                if ((memoXEndDisplayed - hScrollBarStartX.Value) < MaxXAllData)
                 {
                     zoom = 2;
-                    memoZoom *= 2;                //dezoom
+                    //memoZoom *= 2;                //dezoom
                 }
                 else
+                {
                     return;
+                }
             }
             else
             {
-               // if (gPane.XEndDisplayed > 10)         // zoom  10 for X
-                if(gPane.endZoom<gPane.Sources.Count)
+                // if (gPane.XEndDisplayed > 10)         // zoom  10 for X
+                if (gPane.endZoom < gPane.Sources.Count)
                 {
                     zoom = 0.5f;
-                    memoZoom /= 2;
+                    //memoZoom /= 2;
                 }
                 else
+                {
                     return;
+                }
             }
             float XEndDisplayed = hScrollBarStartX.Value + (gPane.XEndDisplayed - hScrollBarStartX.Value) * zoom;
+            if (memoXEndDisplayed == MaxXAllData)        //add this 2 lines:no restart to 0 if hScrollBarStartX after zoom
+            {
+                hScrollBarStartX.Value = 0;
+            }
+
             if (XEndDisplayed > MaxXAllData)
+            {
                 XEndDisplayed = MaxXAllData;   // -(XEndDisplayed-MaxXAllData);
+            }
+
             memoXEndDisplayed = XEndDisplayed;
             UpdateRowSource(XEndDisplayed);
-         }
+        }
         private float memoXEndDisplayed = 0;
         private void UpdateRowSource(float XEndDisplayed)
         {
             float XStartDisplayed = hScrollBarStartX.Value;
             if (gPane.grid_distance_x > 0)
+            {
                 SetGridDistanceX((XEndDisplayed - XStartDisplayed) / 5.0f);
+            }
+
             SetDisplayRangeX(XStartDisplayed, XEndDisplayed);
             // +9.0f stop before max?? with largeChange=10:992 for 1001 ,ok with largeChange=1
             hScrollBarStartX.Maximum = (Int32)Math.Ceiling(MaxXAllData - (XEndDisplayed - XStartDisplayed));
-            gPane.Refresh(); 
+            gPane.Refresh();
         }
-#endregion
+        #endregion
     }
 }

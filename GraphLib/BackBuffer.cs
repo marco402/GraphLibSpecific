@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 
- 
+
 
 /* Copyright (c) 2008-2014 DI Zimmermann Stephan (stefan.zimmermann@tele2.at)
  *   
@@ -24,12 +24,11 @@ using System.Drawing;
  * THE SOFTWARE.
  */
 
- 
+
 namespace GraphLib
 {
     internal class BackBuffer : IDisposable
     {
-        private Graphics graphics;
         private Bitmap memoryBitmap;
         private Int32 width;
         private Int32 height;
@@ -40,7 +39,7 @@ namespace GraphLib
             height = 0;
         }
 
-        internal Boolean Init(Graphics g, Int32 width, Int32 height)
+        internal bool Init(Int32 width, Int32 height)
         {
             if (memoryBitmap != null)
             {
@@ -48,24 +47,26 @@ namespace GraphLib
                 memoryBitmap = null;
             }
 
-            if (graphics != null)
+            if (G != null)
             {
-                graphics.Dispose();
-                graphics = null;
+                G.Dispose();
+                G = null;
             }
 
             if (width == 0 || height == 0)
+            {
                 return false;
+            }
 
-            if ((width != this.width) || 
-                (height != this.height) || 
-                graphics == null)
+            if ((width != this.width) ||
+                (height != this.height) ||
+                G == null)
             {
                 this.width = width;
                 this.height = height;
 
                 memoryBitmap = new Bitmap(width, height);
-                graphics = Graphics.FromImage(memoryBitmap);
+                G = Graphics.FromImage(memoryBitmap);
             }
 
             return true;
@@ -75,26 +76,20 @@ namespace GraphLib
         {
             if (memoryBitmap != null)
             {
-                g.DrawImage(memoryBitmap, 
+                g.DrawImage(memoryBitmap,
                             new Rectangle(0, 0, width, height),
-                            0, 0, width, height, 
+                            0, 0, width, height,
                             GraphicsUnit.Pixel);
             }
         }
 
-        internal Boolean CanDoubleBuffer()
-        {
-            return graphics != null;
-        }
+        //internal bool CanDoubleBuffer()
+        //{
+        //    return G != null;
+        //}
 
-        internal Graphics g
-        {
-            get
-            {
-                return graphics;
-            }
-        }
-        protected virtual void Dispose(Boolean disposing)
+        internal Graphics G { get; private set; }
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing)
             {
