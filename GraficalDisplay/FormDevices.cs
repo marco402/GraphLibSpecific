@@ -243,7 +243,7 @@ namespace GraficDisplay
                 {
                 plotterDisplayExDevices.Smoothing = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
                 plotterDisplayExDevices.DataSources.Clear();
-                plotterDisplayExDevices.PanelLayout = PlotterGraphPaneEx.LayoutMode.VERTICAL_ARRANGED;  //only this if #OPTION to library
+                plotterDisplayExDevices.PanelLayout = PlotterGraphPaneEx.LayoutMode.VerticalArranged;  //only this if #OPTION to library
             }
             plotterDisplayExDevices.DataSources.Add(new DataSource());
             plotterDisplayExDevices.DataSources[NumGraphs].Name = name;
@@ -281,7 +281,7 @@ namespace GraficDisplay
         }
         public bool refreshPoints(List<PointF>[] tabPoints)
         {
-            if (plotterDisplayExDevices.getEndDrawGraphEvent())
+            if (plotterDisplayExDevices.GetEndDrawGraphEvent())
             {
                 float newMaxXAllData = float.MinValue;
                 foreach (List<PointF> lpt in tabPoints)

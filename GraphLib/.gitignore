@@ -2,6 +2,9 @@
 .*
 bin/**
 obj/**
+Backup/**
+../SDRSharp/bin/debug/**
+../SDRSharp/bin/release/**
 !/.gitignore
 !/README.md
 

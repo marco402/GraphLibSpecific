@@ -90,13 +90,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphLib\GraphLib.csproj">
-      <Project>{0C0A1F4D-1363-4544-A7C5-196C76D26CCA}</Project>
-      <Name>GraphLib</Name>
-    </ProjectReference>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <ProjectReference Include="..\GraphLib\GraphLib.csproj">
+      <Project>{0c0a1f4d-1363-4544-a7c5-196c76d26cca}</Project>
+      <Name>GraphLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
