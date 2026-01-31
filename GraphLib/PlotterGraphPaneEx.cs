@@ -75,9 +75,7 @@ namespace GraphLib
         private float off_X = 0;
         private readonly bool hasBoundingBox = true;
         private readonly Font legendFont = new Font(FontFamily.GenericSansSerif, 8.25f);
-        //private readonly Color LabelColor = Color.White;
         private readonly Color GraphBoxColor = Color.White;
-        //private readonly Color GraphColor = Color.DarkGreen;
         private readonly BackBuffer memGraphics;
         private Int32 ActiveSources = 0;
         private PointF graphCaptionOffset = new PointF(12, 2);
@@ -85,9 +83,13 @@ namespace GraphLib
         #region CONSTRUCTOR
         public PlotterGraphPaneEx()
         {
+         SetStyle(ControlStyles.AllPaintingInWmPaint
+            | ControlStyles.UserPaint
+            | ControlStyles.OptimizedDoubleBuffer
+            | ControlStyles.Opaque, true);
+            UpdateStyles();
             memGraphics = new BackBuffer();
             InitializeComponent();
-            Resize += new System.EventHandler(OnResizeForm);
         }
         #endregion
         #region PUBLIC METHODS
@@ -608,85 +610,36 @@ namespace GraphLib
             {
                 // paint background when control is used in editor
                 base.OnPaintBackground(e);
-
             }
             else
             {
                 // do not repaint background to avoid flickering
             }
         }
-        private void OnResizeForm(object sender, System.EventArgs e)
-        {
-            memGraphics.Init(ClientRectangle.Width, ClientRectangle.Height);
-            Invalidate();
-        }
         protected override void OnPaint(PaintEventArgs e)
         {
-            try
+            if (ParentForm != null)
             {
-                if (ParentForm != null)
-                {
-                    EndDrawGraphEvent = false;
-                    Graphics CurGraphics = e.Graphics;
+                EndDrawGraphEvent = false;
 
-                    if (memGraphics.G != null && useDoubleBuffer)
-                    {
-                        CurGraphics = memGraphics.G;
-                    }
+                if (useDoubleBuffer)
+                    memGraphics.Init(ClientRectangle.Width, ClientRectangle.Height);
 
-                    CurGraphics.SmoothingMode = smoothing;
+                Graphics CurGraphics = e.Graphics;
 
-                    PaintControl(CurGraphics, Width, Height, 0, 0, true);
+                if (memGraphics.G != null && useDoubleBuffer)
+                    CurGraphics = memGraphics.G;
 
-                    if (memGraphics.G != null && useDoubleBuffer)
-                    {
-                        memGraphics.Render(e.Graphics);
-                    }
-                    EndDrawGraphEvent = true;
-                    //memGraphics.Init(this.CreateGraphics(), ClientRectangle.Width, ClientRectangle.Height);
-                    //Invalidate();
-                }
+                CurGraphics.SmoothingMode = smoothing;
+
+                PaintControl(CurGraphics, Width, Height, 0, 0, true);
+
+                if (memGraphics.G != null && useDoubleBuffer)
+                    memGraphics.Render(e.Graphics);
+
+                EndDrawGraphEvent = true;
             }
-            catch (Exception ex)
-            {
-                Console.Write("exception : " + ex.Message);
-            }
-
-            base.OnPaint(e);
         }
-        //private Boolean disposed = false;
-        //protected override void Dispose(Boolean disposing)
-        //{
-        //    if (!disposed)
-        //    {
-        //        // Dispose of resources held by this instance.
-
-        //        // Violates rule: DisposableFieldsShouldBeDisposed.
-        //        // Should call aFieldOfADisposableType.Dispose();
-
-        //        disposed = true;
-        //        // Suppress finalization of this disposed instance.
-        //        if (disposing)
-        //        {
-        //            GC.SuppressFinalize(this);
-        //        }
-        //    }
-        //}
-
-        //public new void Dispose()
-        //{
-        //    if (!disposed)
-        //    {
-        //        // Dispose of resources held by this instance.
-        //        Dispose(true);
-        //    }
-        //}
-
-        // Disposable types implement a finalizer.
-        //~TypeB()
-        //{
-        //    Dispose(false);
-        //}
         #endregion
     }
 }

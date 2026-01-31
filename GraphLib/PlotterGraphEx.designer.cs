@@ -35,6 +35,7 @@ namespace GraphLib
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -103,6 +104,7 @@ namespace GraphLib
             // 
             // gPane
             // 
+            this.gPane.BackColor = System.Drawing.Color.Transparent;
             this.gPane.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gPane.Location = new System.Drawing.Point(0, 0);
             this.gPane.Name = "gPane";
@@ -115,6 +117,7 @@ namespace GraphLib
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "PlotterDisplayEx";
             this.Size = new System.Drawing.Size(417, 150);
             this.splitContainer1.Panel1.ResumeLayout(false);

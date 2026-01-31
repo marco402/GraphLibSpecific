@@ -39,10 +39,15 @@ namespace GraphLib
         private delegate void InvokeVoidFuncDelegate();
         #endregion
         #region CONSTRUCTOR
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+             // vide
+        }
         public PlotterDisplayEx()
         {
             InitializeComponent();
             hScrollBarStartX.Maximum = 0;
+            BackColor = Color.Transparent;
             //Console.WriteLine(Application.ProductVersion);
             // mTimer = new PrecisionTimer.Timer();
             // mTimer.Period = 50;                         // 20 fps
@@ -311,5 +316,5 @@ namespace GraphLib
             gPane.Refresh();
         }
         #endregion
-    }
+     }
 }

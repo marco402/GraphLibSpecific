@@ -99,14 +99,8 @@ namespace GraphLib
             set
             {
                 length = value;
-                //if (length != 0)
-                //{
-                //    samples = new PointF[length];
-                //}
-                //else
                 if (length == 0)
                 {
-                    // length is 0
                     if (samples != null)
                     {
                         samples = null;
