@@ -2,14 +2,7 @@
 .*
 .vs8/**
 !/.gitignore
+!/.github
 !/README.md
 GraficDisplay.v12.suo
-
-
-
-
-
-
-
-
 

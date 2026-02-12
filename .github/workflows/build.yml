@@ -1,0 +1,56 @@
+name: Build GraphLib DLL
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [build-graphlib]
+
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    outputs:
+      VERSION: ${{ steps.compute_version.outputs.VERSION }}
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        config: [ CI_x86, CI_x64 ]
+        include:
+          - config: CI_x86
+            platform: x86
+          - config: CI_x64
+            platform: x64
+
+    steps:
+      - name: Checkout GraphLibSpecific
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build GraphLib (${{ matrix.config }})
+        run: msbuild GraphLib/GraphLib.csproj /p:Configuration=${{ matrix.config }} /p:Platform="${{ matrix.platform }}"
+      
+      # Compute a simple version based on the commit hash
+      - name: Compute VERSION
+        id: compute_version
+        shell: pwsh
+        run: |
+          # Récupère le hash court du commit HEAD
+          $sha = git rev-parse --short HEAD
+      
+          Write-Host "Computed VERSION = $sha"
+      
+          # Exporte la version comme output du step
+          echo "VERSION=$sha" >> $env:GITHUB_OUTPUT
+
+      - name: Upload GraphLib DLL
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config }}
+          path: GraphLib/bin/${{ matrix.platform }}/${{ matrix.config }}/*.dll
