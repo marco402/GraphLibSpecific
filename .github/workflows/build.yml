@@ -28,10 +28,7 @@ jobs:
         uses: microsoft/setup-msbuild@v2
 
       - name: Build GraphLib (${{ matrix.config }})
-        run: |
-          msbuild GraphLib/GraphLib.csproj ^
-            /p:Configuration=${{ matrix.config }} ^
-            /p:Platform="${{ matrix.platform }}"
+        run: msbuild GraphLib/GraphLib.csproj /p:Configuration=${{ matrix.config }} /p:Platform="${{ matrix.platform }}"
 
       - name: Upload GraphLib DLL
         uses: actions/upload-artifact@v4
