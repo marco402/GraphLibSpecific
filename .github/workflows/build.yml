@@ -16,11 +16,11 @@ jobs:
 
     strategy:
       matrix:
-        config: [ Graphlib_x86, Graphlib_x64 ]
+        config: [ graphlib_x86, graphlib_x64 ]
         include:
-          - config: Graphlib_x86
+          - config: graphlib_x86
             platform: x86
-          - config: Graphlib_x64
+          - config: graphlib_x64
             platform: x64
 
     steps:
