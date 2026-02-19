@@ -1,10 +1,10 @@
 name: Build GraphLib DLL
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [build-graphlib]
 
-  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
