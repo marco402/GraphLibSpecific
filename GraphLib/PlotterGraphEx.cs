@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -25,9 +25,9 @@ using System.Windows.Forms;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
  * THE SOFTWARE.
  */
-/* spécifique version Modified by Marc Prieur (marco40_github@sfr.fr)
+/* spÃ©cifique version Modified by Marc Prieur (marco40_github@sfr.fr)
  *                             PlotterGraphTypes.cs 
- *    2021           spécifique version for project Rtl_433_Plugin
+ *    2021           spÃ©cifique version for project Rtl_433_Plugin
  *						         Plugin for SdrSharp
  */
 
@@ -48,6 +48,9 @@ namespace GraphLib
             InitializeComponent();
             hScrollBarStartX.Maximum = 0;
             BackColor = Color.Transparent;
+            labelUseMouseWheel.Text = "Use mouse wheel for zoom";
+            //labelTmax.Text = "Tmax";
+            //labelT0.Text = "T0";
             //Console.WriteLine(Application.ProductVersion);
             // mTimer = new PrecisionTimer.Timer();
             // mTimer.Period = 50;                         // 20 fps
@@ -225,23 +228,30 @@ namespace GraphLib
             panel1.ForeColor = theForeColor;
             panel1.Font = theFont;
         }
-        #endregion
-        #region PRIVATE METHODS
-        //private void UpdateControl()
-        //{
-        //    try
-        //    {
-        //        bool AllAutoscaled = true;
+        public void SetTextFctLangage(List<string>listOfString)
+        {
+            //labelT0.Text = listOfString[0];
+            //labelTmax.Text = listOfString[1];
+            labelUseMouseWheel.Text = listOfString[0];
+        }
 
-        //        foreach (DataSource s in gPane.Sources)
-        //        {
-        //            AllAutoscaled &= s.AutoScaleX;
-        //        }
-        //    }
-        //    catch
-        //    {
-        //    }
-        //}
+        #endregion
+            #region PRIVATE METHODS
+            //private void UpdateControl()
+            //{
+            //    try
+            //    {
+            //        bool AllAutoscaled = true;
+
+            //        foreach (DataSource s in gPane.Sources)
+            //        {
+            //            AllAutoscaled &= s.AutoScaleX;
+            //        }
+            //    }
+            //    catch
+            //    {
+            //    }
+            //}
         private float memoScrollValue = 0;
         private void HScrollBar1_ValueChanged(object sender, EventArgs e)
         {
@@ -260,7 +270,7 @@ namespace GraphLib
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             HandledMouseEventArgs h = (HandledMouseEventArgs)e;
-            h.Handled = true; // pour empêcher le traitement par défaut
+            h.Handled = true; // pour empÃªcher le traitement par dÃ©faut
             float zoom;
             if (e.Delta < 0)
             {
