@@ -348,7 +348,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)graphlib.dll" "$(SolutionDir)Rtl_433_Plugin\references\" /Y /I
+    <PostBuildEvent>
 </PostBuildEvent>
   </PropertyGroup>
+  <Target Name="CopyGraphLib" AfterTargets="Build">
+  <Copy 
+    SourceFiles="$(TargetDir)GraphLib.dll"
+    DestinationFolder="$(SolutionDir)Rtl_433_Plugin\references\" 
+    SkipUnchangedFiles="true"
+    OverwriteReadOnlyFiles="true" />
+</Target>
+
 </Project>
