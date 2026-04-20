@@ -351,12 +351,13 @@
     <PostBuildEvent>
 </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="CopyGraphLib" AfterTargets="Build">
+<Target Name="CopyGraphLib" AfterTargets="Build" Condition="'$(GITHUB_ACTIONS)' != 'true'">
   <Copy 
     SourceFiles="$(TargetDir)GraphLib.dll"
     DestinationFolder="$(SolutionDir)Rtl_433_Plugin\references\" 
     SkipUnchangedFiles="true"
     OverwriteReadOnlyFiles="true" />
 </Target>
+
 
 </Project>
